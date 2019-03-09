@@ -19,7 +19,7 @@ actor! {
             Err(String),
         config:
             device: u16,
-        data:
+        context:
             lines_parsed: u64 = 0,
         on_init: ()
         on_message:
