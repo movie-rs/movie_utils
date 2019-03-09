@@ -12,7 +12,7 @@ impl WaitableHandle for StdJoinHandle<()> {
 }
 
 pub struct Handle<T: WaitableHandle, TX, RX> {
-    wait_handle: T,
+    pub wait_handle: T,
     pub tx: TX,
     pub rx: RX,
 }
@@ -20,11 +20,5 @@ pub struct Handle<T: WaitableHandle, TX, RX> {
 impl<T: WaitableHandle, TX, RX> Handle<T, TX, RX> {
     pub fn wait(self) {
         self.wait_handle.wait();
-    }
-}
-
-impl<TX, RX> Handle<StdJoinHandle<()>, TX, RX> {
-    pub fn into_std(self) -> StdJoinHandle<()> {
-        self.wait_handle
     }
 }
