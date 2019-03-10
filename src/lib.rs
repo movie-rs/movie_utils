@@ -14,13 +14,16 @@ impl JoinableHandle for StdJoinHandle<()> {
 pub struct Handle<T: JoinableHandle, TX> {
     pub join_handle: T,
     pub tx: std::sync::mpsc::Sender<TX>,
+    pub kill: std::sync::mpsc::Sender<()>,
 }
 
 impl<T: JoinableHandle, TX> Handle<T, TX> {
-    pub fn join(self) {
-        self.join_handle.join();
-    }
     pub fn send(&mut self, msg: TX) {
         self.tx.send(msg).unwrap();
+    }
+    #[allow(unused_must_use)]
+    pub fn stop(self) {
+        self.kill.send(());
+        self.join_handle.join();
     }
 }
