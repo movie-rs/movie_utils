@@ -33,7 +33,7 @@ pub struct Handle<T: JoinableHandle, TX> {
 
 impl<T: JoinableHandle, TX> Handle<T, TX> {
     /// Wrapper on `tx.send(msg).unwrap()`.
-    pub fn send(&mut self, msg: TX) {
+    pub fn send(&self, msg: TX) {
         self.tx.send(msg).unwrap();
     }
     #[allow(unused_must_use)]
