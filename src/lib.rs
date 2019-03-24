@@ -17,7 +17,7 @@ impl JoinableHandle for JoinHandle<()> {
     }
 }
 
-/// Handle returned by `Actor::start()`.
+/// Handle returned by `Actor::start()`. Generic version.
 pub struct Handle<T: JoinableHandle, TX> {
     /// The underlying handle to process, thread, task, future, etc.
     pub join_handle: T,
